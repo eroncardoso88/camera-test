@@ -1,7 +1,6 @@
 import "./App.css";
 
-import React, { ReactDOM } from "react";
-
+import React from "react";
 import Webcam from "react-webcam";
 
 function App() {
