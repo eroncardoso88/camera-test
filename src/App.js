@@ -9,7 +9,14 @@ function App() {
     const mediaRecorderRef = React.useRef(null);
     const [capturing, setCapturing] = React.useState(false);
     const [recordedChunks, setRecordedChunks] = React.useState([]);
-
+    const handleDataAvailable = React.useCallback(
+      ({ data }) => {
+        if (data.size > 0) {
+          setRecordedChunks((prev) => prev.concat(data));
+        }
+      },
+      [setRecordedChunks]
+    );
     const handleStartCaptureClick = React.useCallback(() => {
       setCapturing(true);
       mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
@@ -20,21 +27,12 @@ function App() {
         handleDataAvailable
       );
       mediaRecorderRef.current.start();
-    }, [webcamRef, setCapturing, mediaRecorderRef]);
-
-    const handleDataAvailable = React.useCallback(
-      ({ data }) => {
-        if (data.size > 0) {
-          setRecordedChunks((prev) => prev.concat(data));
-        }
-      },
-      [setRecordedChunks]
-    );
+    }, [setCapturing, mediaRecorderRef, handleDataAvailable]);
 
     const handleStopCaptureClick = React.useCallback(() => {
       mediaRecorderRef.current.stop();
       setCapturing(false);
-    }, [mediaRecorderRef, webcamRef, setCapturing]);
+    }, [mediaRecorderRef, setCapturing]);
 
     const handleDownload = React.useCallback(() => {
       if (recordedChunks.length) {
