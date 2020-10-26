@@ -41,3 +41,8 @@ video,
 button {
   display: block;
 }
+
+button {
+  background-color: hsl(4deg 85% 62%);
+  color: white;
+}
