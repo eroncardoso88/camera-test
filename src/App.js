@@ -54,14 +54,9 @@ function App() {
     return (
       <>
         <Webcam audio={false} ref={webcamRef} />
-        {capturing ? (
-          <button onClick={handleStopCaptureClick}>Stop Capture</button>
-        ) : (
-          <button onClick={handleStartCaptureClick}>Start Capture</button>
-        )}
-        {recordedChunks.length > 0 && (
-          <button onClick={handleDownload}>Download</button>
-        )}
+        <button onClick={handleStopCaptureClick}>Stop Capture</button>
+        <button onClick={handleStartCaptureClick}>Start Capture</button>
+        <button onClick={handleDownload}>Download</button>
       </>
     );
   };
